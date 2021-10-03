@@ -1,0 +1,30 @@
+name: Scrape  # The name of your Workflow
+
+on:
+  push
+
+jobs:
+  scrape-latest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2.0.0
+        with:
+          python-version: '3.7'
+      # Tells Github to run the file `scraper.py` from your repository
+      - name: Run cryto_scraper_python
+        run: python cryto_scraper_python.py scrape
+ 
+ # Add new files in data folder, commit along with other modified files, push
+      - name: Commit files
+        run: |
+          git config --local user.name actions-user
+          git config --local user.email "actions@github.com"
+          git add data/*
+          git commit -am "GH ACTION Headlines $(date)"
+          git push origin main
+        env:
+          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+          username: github-actions
