@@ -1,0 +1,5 @@
+Training Set: 511 rows
+Test Set: 220 rows
+MSE: 201972.559470 
+RMSE: 449.413573 
+R2: 0.604045
